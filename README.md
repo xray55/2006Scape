@@ -21,16 +21,6 @@
 *Advanced*
 
 To compile any module from the command line, run `mvn clean install`
-
-## Using Parabot with your local server:
-- **1:** Download the latest Parabot Client from [here](https://github.com/2006-Scape/Parabot/releases)
-- **2:** Run the parabot client with the following arg:
-```fix
-java -jar Parabot.jar -local
-```
-- **3:** ???
-- **4:** PROFIT
-
 ### Server source layout
 
 - `2006Scape Server` contains all the server code; mark `src` as the Sources directory
