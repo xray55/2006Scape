@@ -6,6 +6,9 @@ import java.io.IOException;
 
 import com.rs2.game.npcs.NPCDefinition;
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.security.NoTypePermission;
+import com.thoughtworks.xstream.security.NullPermission;
+import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
 public class XStreamUtil {
 	
@@ -16,7 +19,15 @@ public class XStreamUtil {
 		return instance;
 	}
         
-    static {
+	static {
+		// Security hardening: deny all types by default and allow only required types
+		xStream.addPermission(NoTypePermission.NONE);
+		// allow basic types
+		xStream.addPermission(NullPermission.NULL);
+		xStream.addPermission(PrimitiveTypePermission.PRIMITIVES);
+		// allow only specific application types
+		xStream.allowTypes(new Class[] { NPCDefinition.class });
+
 		xStream.alias("npcDefinition", NPCDefinition.class);
 	}
 

@@ -6,8 +6,8 @@ import com.rs2.GameEngine;
 import com.rs2.game.objects.Objects;
 import com.rs2.game.players.Player;
 import com.rs2.util.DoorData;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.rs2.json.JSONArray;
+import com.rs2.json.JSONObject;
 
 import java.io.*;
 import java.lang.reflect.Type;

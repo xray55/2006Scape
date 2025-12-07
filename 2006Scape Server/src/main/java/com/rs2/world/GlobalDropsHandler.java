@@ -13,8 +13,8 @@ import com.rs2.util.Misc;
 import com.rs2.util.ShopData;
 
 import org.apollo.cache.def.ItemDefinition;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.rs2.json.JSONArray;
+import com.rs2.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

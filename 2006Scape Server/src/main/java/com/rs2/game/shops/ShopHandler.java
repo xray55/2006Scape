@@ -7,8 +7,8 @@ import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.util.Misc;
 import com.rs2.util.ShopData;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.rs2.json.JSONArray;
+import com.rs2.json.JSONObject;
 
 import java.io.*;
 import java.lang.reflect.Type;
