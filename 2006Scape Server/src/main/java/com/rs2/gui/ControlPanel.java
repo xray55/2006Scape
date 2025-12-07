@@ -4,6 +4,7 @@ import com.rs2.Constants;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serial;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
