@@ -49,7 +49,7 @@ public final class HandshakeDecoder extends ByteToMessageDecoder {
 
 			default:
 				ByteBuf data = buffer.readBytes(buffer.readableBytes());
-				logger.info(String.format("Unexpected handshake request received: %d data: %s", id, data.toString()));
+				logger.info("Unexpected handshake request received: %d data: %s".formatted(id, data.toString()));
 				return;
 		}
 

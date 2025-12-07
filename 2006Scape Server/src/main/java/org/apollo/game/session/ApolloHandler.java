@@ -78,8 +78,7 @@ public final class ApolloHandler extends ChannelInboundHandlerAdapter {
 		}
 
 		// TODO: Perhaps let HandshakeMessage implement Message to remove this explicit check
-		if (message instanceof HandshakeMessage) {
-			HandshakeMessage handshakeMessage = (HandshakeMessage) message;
+		if (message instanceof HandshakeMessage handshakeMessage) {
 
 			switch (handshakeMessage.getServiceId()) {
 			case HandshakeConstants.SERVICE_GAME:

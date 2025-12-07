@@ -2,6 +2,7 @@ package com.rs2.integrations;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 
 import com.rs2.Constants;
@@ -12,7 +13,7 @@ public class RegisteredAccsWebsite {
 
     private static void setAccountsRegistered(int amount) throws IOException {
         URL url;
-        url = new URL(Constants.WEBSITE_LINK + "/accountsregistered.php?pass=" + password + "&amount=" + amount + "&world=" + Constants.WORLD);
+        url = URI.create(Constants.WEBSITE_LINK + "/accountsregistered.php?pass=" + password + "&amount=" + amount + "&world=" + Constants.WORLD).toURL();
         url.openStream().close();
     }
 

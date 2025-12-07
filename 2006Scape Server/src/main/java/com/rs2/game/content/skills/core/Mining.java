@@ -1,5 +1,7 @@
 package com.rs2.game.content.skills.core;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import com.rs2.Constants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
@@ -32,7 +34,7 @@ public class Mining {
     }
 
     public void obtainGem(Player player) {
-        int reward = RANDOM_GEMS[(int) (RANDOM_GEMS.length * Math.random())];
+        int reward = RANDOM_GEMS[(int) (RANDOM_GEMS.length * ThreadLocalRandom.current().nextDouble())];
         player.getItemAssistant().addItem(reward, 1);
         player.getPacketSender().sendMessage("You found an " + DeprecatedItems.getItemName(reward) + ".");
     }
@@ -66,7 +68,7 @@ public class Mining {
 
         public static int getRandom() {
             final int maxChance = 128;
-            int random = (int) Math.floor(Math.random() * maxChance);
+            int random = (int) Math.floor(ThreadLocalRandom.current().nextDouble() * maxChance);
             int index = 0;
             for (gems gem : gems.values()) {
                 index += gem.chance;
@@ -153,7 +155,7 @@ public class Mining {
                 return gems.getRandom();
 
             // return a random ore from the possibilities
-            return oreIds[(int) Math.floor(Math.random() * oreIds.length)];
+            return oreIds[(int) Math.floor(ThreadLocalRandom.current().nextDouble() * oreIds.length)];
         }
     }
 

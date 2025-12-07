@@ -152,7 +152,7 @@ public class Boundary {
 	public static boolean isInSameBoundary(Player player1, Player player2, Boundary[] boundaries) {
 		Optional<Boundary> boundary1 = Arrays.asList(boundaries).stream().filter(b -> isIn(player1, b)).findFirst();
 		Optional<Boundary> boundary2 = Arrays.asList(boundaries).stream().filter(b -> isIn(player2, b)).findFirst();
-		if (!boundary1.isPresent() || !boundary2.isPresent()) {
+		if (boundary1.isEmpty() || boundary2.isEmpty()) {
 			return false;
 		}
 		return Objects.equals(boundary1.get(), boundary2.get());

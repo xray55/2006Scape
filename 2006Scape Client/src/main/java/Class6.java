@@ -2,12 +2,14 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
+import java.util.concurrent.ThreadLocalRandom;
+
 final class Class6 {
 
 	public static void method166() {
 		anIntArray116 = new int[32768];
 		for (int i = 0; i < 32768; i++) {
-			if (Math.random() > 0.5D) {
+			if (ThreadLocalRandom.current().nextDouble() > 0.5D) {
 				anIntArray116[i] = 1;
 			} else {
 				anIntArray116[i] = -1;

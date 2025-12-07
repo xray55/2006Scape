@@ -187,7 +187,7 @@ public class Commands implements PacketType {
                 player.getPacketSender().sendMessage("local coord are [" + player.getLocalX() + ", " + player.getLocalY() + "]");
                 break;
             case "energy":
-                player.getPacketSender().sendMessage(String.format("Run energy: %d", (int) player.playerEnergy));
+                player.getPacketSender().sendMessage("Run energy: %d".formatted((int) player.playerEnergy));
                 break;
             case "password":
             case "changepassword":
@@ -244,7 +244,7 @@ public class Commands implements PacketType {
 
                 break;
             case "prayer":
-                player.getPacketSender().sendMessage(String.format("Prayer points: %d", player.playerLevel[Constants.PRAYER]));
+                player.getPacketSender().sendMessage("Prayer points: %d".formatted(player.playerLevel[Constants.PRAYER]));
                 break;
             case "togglenpckillmsgs":
             case "togglenpckillmsg":

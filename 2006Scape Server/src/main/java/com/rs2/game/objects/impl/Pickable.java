@@ -1,5 +1,7 @@
 package com.rs2.game.objects.impl;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
@@ -70,6 +72,6 @@ public class Pickable {
 	}
 
 	private static int random(int range) {
-		return (int) (java.lang.Math.random() * (range + 1));
+		return (int) (ThreadLocalRandom.current().nextDouble() * (range + 1));
 	}
 }

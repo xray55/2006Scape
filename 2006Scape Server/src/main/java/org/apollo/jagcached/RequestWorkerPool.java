@@ -1,7 +1,6 @@
 package org.apollo.jagcached;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -65,7 +64,7 @@ public final class RequestWorkerPool {
 	 * @throws Exception if the file system cannot be created.
 	 */
 	public void start() throws Exception {
-		Path base = Paths.get(Constants.FILE_SYSTEM_DIR);
+		Path base = Path.of(Constants.FILE_SYSTEM_DIR);
 		for (int i = 0; i < THREADS_PER_REQUEST_TYPE; i++) {
 			workers.add(new JagGrabRequestWorker(dispatcher, new IndexedFileSystem(base, true)));
 			workers.add(new OnDemandRequestWorker(dispatcher, new IndexedFileSystem(base, true)));

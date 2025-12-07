@@ -1863,7 +1863,7 @@ public class PlayerAssistant {
 
 		Optional<SkillData> data = SkillData.getSkill(skill);
 		
-		if(!data.isPresent())
+		if(data.isEmpty())
 			return;
 					
 		player.getPacketSender().sendMessage("Congratulations, you've advanced a level in "+data.get().toString()+"!");
@@ -1979,7 +1979,7 @@ public class PlayerAssistant {
 		player.getPacketSender().sendString("Combat Lvl: "+player.calculateCombatLevel()+"", 3983);
 		Optional<SkillData> data = SkillData.getSkill(skill);
 
-		if(!data.isPresent())
+		if(data.isEmpty())
 			return;
 
 		player.getPacketSender().sendString("" + player.playerLevel[skill] + "", data.get().getFrame4());

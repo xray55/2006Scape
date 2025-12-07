@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.text.*;
 import java.time.ZonedDateTime;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class Misc {
@@ -21,12 +22,12 @@ public class Misc {
 	}
 
 	public static int random(final float range) {
-		return (int) (java.lang.Math.random() * (range + 1));
+		return (int) (ThreadLocalRandom.current().nextDouble() * (range + 1));
 	}
 
 	// return a random number from 0 → range - 1
 	public static int randomMinusOne(int range) {
-		return (int) Math.random() * range;
+		return (int) ThreadLocalRandom.current().nextDouble() * range;
 	}
 
 	public static double distance(int x1, int y1, int x2, int y2 ) {
@@ -49,11 +50,11 @@ public class Misc {
 	}
 
 	public static int random3(int range) {
-		return (int) (java.lang.Math.random() * range);
+		return (int) (ThreadLocalRandom.current().nextDouble() * range);
 	}
 
 	public static int randomNumber(int range) {
-		return (int) (Math.random() * range);
+		return (int) (ThreadLocalRandom.current().nextDouble() * range);
 	}
 
 	public static String longToPlayerName(long l) {
@@ -212,14 +213,14 @@ public class Misc {
     public static String formatText(String s) {
         for (int i = 0; i < s.length(); i++) {
             if (i == 0) {
-                s = String.format("%s%s", Character.toUpperCase(s.charAt(0)),
-                    s.substring(1));
+                s = "%s%s".formatted(Character.toUpperCase(s.charAt(0)),
+					s.substring(1));
             }
             if (!Character.isLetterOrDigit(s.charAt(i))) {
                 if (i + 1 < s.length()) {
-                    s = String.format("%s%s%s", s.subSequence(0, i + 1),
-                        Character.toUpperCase(s.charAt(i + 1)),
-                        s.substring(i + 2));
+                    s = "%s%s%s".formatted(s.subSequence(0, i + 1),
+						Character.toUpperCase(s.charAt(i + 1)),
+						s.substring(i + 2));
                 }
             }
         }
@@ -229,14 +230,14 @@ public class Misc {
     public static String formatTextUnderscore(String s) {
         for (int i = 0; i < s.length(); i++) {
             if (i == 0) {
-                s = String.format("%s%s", Character.toUpperCase(s.charAt(0)),
-                    s.substring(1));
+                s = "%s%s".formatted(Character.toUpperCase(s.charAt(0)),
+					s.substring(1));
             }
             if (!Character.isLetterOrDigit(s.charAt(i))) {
                 if (i + 1 < s.length()) {
-                    s = String.format("%s%s%s", s.subSequence(0, i + 1),
-                        Character.toUpperCase(s.charAt(i + 1)),
-                        s.substring(i + 2));
+                    s = "%s%s%s".formatted(s.subSequence(0, i + 1),
+						Character.toUpperCase(s.charAt(i + 1)),
+						s.substring(i + 2));
                 }
             }
         }
@@ -246,11 +247,11 @@ public class Misc {
     public static String optimizeTextNew(String text) {
         for (int index = 0; index < text.length(); index++) {
             if (index == 0) {
-                text = String.format("%s%s", Character.toUpperCase(text.charAt(0)), text.substring(1));
+                text = "%s%s".formatted(Character.toUpperCase(text.charAt(0)), text.substring(1));
             }
             if (!Character.isLetterOrDigit(text.charAt(index))) {
                 if (index + 1 < text.length()) {
-                    text = String.format("%s%s%s", text.subSequence(0, index + 1), Character.toUpperCase(text.charAt(index + 1)), text.substring(index + 2));
+                    text = "%s%s%s".formatted(text.subSequence(0, index + 1), Character.toUpperCase(text.charAt(index + 1)), text.substring(index + 2));
                 }
             }
         }
@@ -339,26 +340,26 @@ public class Misc {
 	}
 	
 	public static int random2(int range) {
-		return (int) (java.lang.Math.random() * range + 1);
+		return (int) (ThreadLocalRandom.current().nextDouble() * range + 1);
 	}
 
 	// return a random number from 0 → range (including range)
 	public static int random(int range) {
-		return (int) (java.lang.Math.random() * (++range));
+		return (int) (ThreadLocalRandom.current().nextDouble() * (++range));
 	}
 
 	// return a random number between & including the min/max values
 	public static int random(int min, int max) {
 		++max;
-		return (int) Math.floor(Math.random() * (max - min)) + min;
+		return (int) Math.floor(ThreadLocalRandom.current().nextDouble() * (max - min)) + min;
 	}
 
 	public static int randomArrayItem(int[] arr) {
-		return arr[(int) Math.floor(Math.random() * arr.length)];
+		return arr[(int) Math.floor(ThreadLocalRandom.current().nextDouble() * arr.length)];
 	}
 
 	public static int randomArrayListItem(ArrayList<Integer> arr) {
-		int index = (int) Math.floor(Math.random() * arr.size());
+		int index = (int) Math.floor(ThreadLocalRandom.current().nextDouble() * arr.size());
 		return arr.get(index);
 	}
 
@@ -476,7 +477,7 @@ public class Misc {
 			}
 		}
 
-		throw new IllegalArgumentException(String.format("Cannot find direction %d %d", x, y));
+		throw new IllegalArgumentException("Cannot find direction %d %d".formatted(x, y));
 	}
 
 	public static int direction(int srcX, int srcY, int x, int y) {
@@ -505,12 +506,12 @@ public class Misc {
 	public static String capitalize(String s) {
 		for (int i = 0; i < s.length(); i++) {
 			if (i == 0) {
-				s = String.format("%s%s", Character.toUpperCase(s.charAt(0)),
-						s.substring(1));
+				s = "%s%s".formatted(Character.toUpperCase(s.charAt(0)),
+					s.substring(1));
 			}
 			if (!Character.isLetterOrDigit(s.charAt(i))) {
 				if (i + 1 < s.length()) {
-					s = String.format("%s%s%s", s.subSequence(0, i + 1), Character.toUpperCase(s.charAt(i + 1)), s.substring(i + 2));
+					s = "%s%s%s".formatted(s.subSequence(0, i + 1), Character.toUpperCase(s.charAt(i + 1)), s.substring(i + 2));
 				}
 			}
 		}
@@ -993,7 +994,7 @@ public class Misc {
 		long hours = (uptimeMillis / (1000 * 60 * 60)) % 24;
 		long days = uptimeMillis / (1000 * 60 * 60 * 24);
 	
-		return String.format("%d days, %d hours, %d minutes, %d seconds", days, hours, minutes, seconds);
+		return "%d days, %d hours, %d minutes, %d seconds".formatted(days, hours, minutes, seconds);
 	}
 	
 	public static double roundOneDecimal(double number_to_format) {

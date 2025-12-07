@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -199,7 +199,7 @@ public class GameEngine {
 			System.exit(1);
 		}
 
-		IndexedFileSystem cache = new IndexedFileSystem(Paths.get(Constants.FILE_SYSTEM_DIR), true);
+		IndexedFileSystem cache = new IndexedFileSystem(Path.of(Constants.FILE_SYSTEM_DIR), true);
 		new ObjectDefinitionDecoder(cache).run();
 		new ItemDefinitionDecoder(cache).run();
 		

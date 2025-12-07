@@ -9,7 +9,8 @@ import java.awt.event.ActionListener;
 
 public class ControlPanel extends JFrame {
 
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
     public final String[] MESSAGE_COLOR = {"Red", "Blue", "Green", "Yellow", "Magenta", "Orange", "Dark Red", "Dark Blue", "None"};
     public final String[] PANEL_TELEPORTS = {"Cutsom Location", "Edgevill", "Lumbridge", "Al-kharid", "Varrock", "Falador", "Camelot", "Ardounge", "Watchtower", "Trollheim", "Ape Atoll", "Canifas", "Port Sarim", "Rimmington", "Draynor", "IceQueen Lair", "Brimhaven Dungeon", "Gnome Agility", "Wilderness Agility", "Distant kingdom", "Maze Event", "Drill Instructor", "Grave Digger", "Karamja Lessers", "Evil Bob's Island", "Secret Island", "Ibans Trap", "Fishing Docks", "Mage Trainging", "Quest Place", "Duel Arena", "Bandit Camp", "Uzer"};
     // Variables declaration - do not modify

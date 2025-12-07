@@ -15,6 +15,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
@@ -24,6 +25,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.zip.CRC32;
 
 /**
@@ -682,7 +684,7 @@ public class Game extends RSApplet {
     }
 
     public static int random(final float range) {
-        return (int) (Math.random() * (range + 1));
+        return (int) (ThreadLocalRandom.current().nextDouble() * (range + 1));
     }
 
     public static String intToKOrMilLongName(int i) {
@@ -1636,8 +1638,8 @@ public class Game extends RSApplet {
 
         }
 
-        int j1 = (238 + (int) (Math.random() * 20D) - 10 << 16) + (238 + (int) (Math.random() * 20D) - 10 << 8) + 238 + (int) (Math.random() * 20D) - 10;
-        int l1 = 238 + (int) (Math.random() * 20D) - 10 << 16;
+        int j1 = (238 + (int) (ThreadLocalRandom.current().nextDouble() * 20D) - 10 << 16) + (238 + (int) (ThreadLocalRandom.current().nextDouble() * 20D) - 10 << 8) + 238 + (int) (ThreadLocalRandom.current().nextDouble() * 20D) - 10;
+        int l1 = 238 + (int) (ThreadLocalRandom.current().nextDouble() * 20D) - 10 << 16;
         aClass30_Sub2_Sub1_Sub1_1263.method343();
         for (int i2 = 1; i2 < 103; i2++) {
             for (int j2 = 1; j2 < 103; j2++) {
@@ -1669,7 +1671,7 @@ public class Game extends RSApplet {
                             byte byte1 = 104;
                             int[][] ai1 = aClass11Array1230[plane].anIntArrayArray294;
                             for (int i4 = 0; i4 < 10; i4++) {
-                                int j4 = (int) (Math.random() * 4D);
+                                int j4 = (int) (ThreadLocalRandom.current().nextDouble() * 4D);
                                 if (j4 == 0 && k3 > 0 && k3 > k2 - 3 && (ai1[k3 - 1][l3] & 0x1280108) == 0) {
                                     k3--;
                                 }
@@ -2102,15 +2104,15 @@ public class Game extends RSApplet {
                 stream.writeWordBigEndian(139);
                 stream.writeWordBigEndian(150);
                 stream.writeWord(32131);
-                stream.writeWordBigEndian((int) (Math.random() * 256D));
+                stream.writeWordBigEndian((int) (ThreadLocalRandom.current().nextDouble() * 256D));
                 stream.writeWord(3250);
                 stream.writeWordBigEndian(177);
                 stream.writeWord(24859);
                 stream.writeWordBigEndian(119);
-                if ((int) (Math.random() * 2D) == 0) {
+                if ((int) (ThreadLocalRandom.current().nextDouble() * 2D) == 0) {
                     stream.writeWord(47234);
                 }
-                if ((int) (Math.random() * 2D) == 0) {
+                if ((int) (ThreadLocalRandom.current().nextDouble() * 2D) == 0) {
                     stream.writeWordBigEndian(21);
                 }
                 stream.writeBytes(stream.currentOffset - j);
@@ -2256,8 +2258,8 @@ public class Game extends RSApplet {
                 if (obj == null || !((Entity) obj).isVisible()) {
                     continue;
                 }
-                if (obj instanceof NPC) {
-                    EntityDef entityDef = ((NPC) obj).desc;
+                if (obj instanceof NPC pC) {
+                    EntityDef entityDef = pC.desc;
                     if (entityDef.childrenIDs != null) {
                         entityDef = entityDef.method161();
                     }
@@ -3577,14 +3579,14 @@ public class Game extends RSApplet {
     public void calcFlamesPosition() {
         char c = '\u0100';
         for (int j = 10; j < 117; j++) {
-            int k = (int) (Math.random() * 100D);
+            int k = (int) (ThreadLocalRandom.current().nextDouble() * 100D);
             if (k < 50) {
                 anIntArray828[j + (c - 2 << 7)] = 255;
             }
         }
         for (int l = 0; l < 100; l++) {
-            int i1 = (int) (Math.random() * 124D) + 2;
-            int k1 = (int) (Math.random() * 128D) + 128;
+            int i1 = (int) (ThreadLocalRandom.current().nextDouble() * 124D) + 2;
+            int k1 = (int) (ThreadLocalRandom.current().nextDouble() * 128D) + 128;
             int k2 = i1 + (k1 << 7);
             anIntArray828[k2] = 192;
         }
@@ -3600,7 +3602,7 @@ public class Game extends RSApplet {
         anInt1275 += 128;
         if (anInt1275 > anIntArray1190.length) {
             anInt1275 -= anIntArray1190.length;
-            int i2 = (int) (Math.random() * 12D);
+            int i2 = (int) (ThreadLocalRandom.current().nextDouble() * 12D);
             randomizeBackground(aBackgroundArray1152s[i2]);
         }
         for (int j2 = 1; j2 < c - 1; j2++) {
@@ -3625,7 +3627,7 @@ public class Game extends RSApplet {
             anInt1041 -= 4;
         }
         if (anInt1040 == 0 && anInt1041 == 0) {
-            int l3 = (int) (Math.random() * 2000D);
+            int l3 = (int) (ThreadLocalRandom.current().nextDouble() * 2000D);
             if (l3 == 0) {
                 anInt1040 = 1024;
             }
@@ -3942,7 +3944,7 @@ public class Game extends RSApplet {
         anInt988++;
         if (anInt988 > 500) {
             anInt988 = 0;
-            int l1 = (int) (Math.random() * 8D);
+            int l1 = (int) (ThreadLocalRandom.current().nextDouble() * 8D);
             if ((l1 & 1) == 1) {
                 anInt1278 += anInt1279;
             }
@@ -3974,7 +3976,7 @@ public class Game extends RSApplet {
         anInt1254++;
         if (anInt1254 > 500) {
             anInt1254 = 0;
-            int i2 = (int) (Math.random() * 8D);
+            int i2 = (int) (ThreadLocalRandom.current().nextDouble() * 8D);
             if ((i2 & 1) == 1) {
                 minimapInt2 += anInt1210;
             }
@@ -6728,8 +6730,8 @@ public class Game extends RSApplet {
                 inStream.currentOffset = 0;
                 aLong1215 = inStream.readQWord();
                 int[] ai = new int[4];
-                ai[0] = (int) (Math.random() * 99999999D);
-                ai[1] = (int) (Math.random() * 99999999D);
+                ai[0] = (int) (ThreadLocalRandom.current().nextDouble() * 99999999D);
+                ai[1] = (int) (ThreadLocalRandom.current().nextDouble() * 99999999D);
                 ai[2] = (int) (aLong1215 >> 32);
                 ai[3] = (int) aLong1215;
                 stream.currentOffset = 0;
@@ -6805,12 +6807,12 @@ public class Game extends RSApplet {
                 spellSelected = 0;
                 loadingStage = 0;
                 currentSound = 0;
-                anInt1278 = (int) (Math.random() * 100D) - 50;
-                anInt1131 = (int) (Math.random() * 110D) - 55;
-                anInt896 = (int) (Math.random() * 80D) - 40;
-                minimapInt2 = (int) (Math.random() * 120D) - 60;
-                minimapInt3 = (int) (Math.random() * 30D) - 20;
-                minimapInt1 = (int) (Math.random() * 20D) - 10 & 0x7ff;
+                anInt1278 = (int) (ThreadLocalRandom.current().nextDouble() * 100D) - 50;
+                anInt1131 = (int) (ThreadLocalRandom.current().nextDouble() * 110D) - 55;
+                anInt896 = (int) (ThreadLocalRandom.current().nextDouble() * 80D) - 40;
+                minimapInt2 = (int) (ThreadLocalRandom.current().nextDouble() * 120D) - 60;
+                minimapInt3 = (int) (ThreadLocalRandom.current().nextDouble() * 30D) - 20;
+                minimapInt1 = (int) (ThreadLocalRandom.current().nextDouble() * 20D) - 10 & 0x7ff;
                 anInt1021 = 0;
                 anInt985 = -1;
                 destX = 0;
@@ -7585,7 +7587,7 @@ public class Game extends RSApplet {
             String s = "Unknown problem";
             drawLoadingText(20, "Connecting to web server");
             try {
-                DataInputStream datainputstream = openJagGrabInputStream("crc" + (int) (Math.random() * 99999999D) + "-" + 317);
+                DataInputStream datainputstream = openJagGrabInputStream("crc" + (int) (ThreadLocalRandom.current().nextDouble() * 99999999D) + "-" + 317);
                 Stream class30_sub2_sub2 = new Stream(new byte[40]);
                 datainputstream.readFully(class30_sub2_sub2.buffer, 0, 40);
                 datainputstream.close();
@@ -7927,10 +7929,10 @@ public class Game extends RSApplet {
             sprite = new Sprite(streamLoader_2, "backhmid2", 0);
             backVmidIP2_2 = new RSImageProducer(sprite.width, sprite.height, getGameComponent());
             sprite.method346(0, 0);
-            int i5 = (int) (Math.random() * 21D) - 10;
-            int j5 = (int) (Math.random() * 21D) - 10;
-            int k5 = (int) (Math.random() * 21D) - 10;
-            int l5 = (int) (Math.random() * 41D) - 20;
+            int i5 = (int) (ThreadLocalRandom.current().nextDouble() * 21D) - 10;
+            int j5 = (int) (ThreadLocalRandom.current().nextDouble() * 21D) - 10;
+            int k5 = (int) (ThreadLocalRandom.current().nextDouble() * 21D) - 10;
+            int l5 = (int) (ThreadLocalRandom.current().nextDouble() * 41D) - 20;
             for (int i6 = 0; i6 < 100; i6++) {
                 if (mapFunctions[i6] != null) {
                     mapFunctions[i6].method344(i5 + l5, j5 + l5, k5 + l5);
@@ -8112,19 +8114,19 @@ public class Game extends RSApplet {
                 stream.createFrame(246);
                 stream.writeWordBigEndian(0);
                 int l = stream.currentOffset;
-                if ((int) (Math.random() * 2D) == 0) {
+                if ((int) (ThreadLocalRandom.current().nextDouble() * 2D) == 0) {
                     stream.writeWordBigEndian(101);
                 }
                 stream.writeWordBigEndian(197);
-                stream.writeWord((int) (Math.random() * 65536D));
-                stream.writeWordBigEndian((int) (Math.random() * 256D));
+                stream.writeWord((int) (ThreadLocalRandom.current().nextDouble() * 65536D));
+                stream.writeWordBigEndian((int) (ThreadLocalRandom.current().nextDouble() * 256D));
                 stream.writeWordBigEndian(67);
                 stream.writeWord(14214);
-                if ((int) (Math.random() * 2D) == 0) {
+                if ((int) (ThreadLocalRandom.current().nextDouble() * 2D) == 0) {
                     stream.writeWord(29487);
                 }
-                stream.writeWord((int) (Math.random() * 65536D));
-                if ((int) (Math.random() * 2D) == 0) {
+                stream.writeWord((int) (ThreadLocalRandom.current().nextDouble() * 65536D));
+                if ((int) (ThreadLocalRandom.current().nextDouble() * 2D) == 0) {
                     stream.writeWordBigEndian(220);
                 }
                 stream.writeWordBigEndian(180);
@@ -8200,7 +8202,7 @@ public class Game extends RSApplet {
         // }
         try {
             // if (super.gameFrame != null) {
-            return new URL("http://" + server + ":" + (8080 + portOff));
+            return URI.create("http://" + server + ":" + (8080 + portOff)).toURL();
             // }
         } catch (Exception _ex) {
         }
@@ -9158,8 +9160,8 @@ public class Game extends RSApplet {
         }
 
         for (int l = 0; l < 5000; l++) {
-            int i1 = (int) (Math.random() * 128D * (double) j);
-            anIntArray1190[i1] = (int) (Math.random() * 256D);
+            int i1 = (int) (ThreadLocalRandom.current().nextDouble() * 128D * (double) j);
+            anIntArray1190[i1] = (int) (ThreadLocalRandom.current().nextDouble() * 256D);
         }
 
         for (int j1 = 0; j1 < 20; j1++) {
@@ -9403,18 +9405,18 @@ public class Game extends RSApplet {
                 stream.createFrame(77);
                 stream.writeWordBigEndian(0);
                 int i2 = stream.currentOffset;
-                stream.writeWordBigEndian((int) (Math.random() * 256D));
+                stream.writeWordBigEndian((int) (ThreadLocalRandom.current().nextDouble() * 256D));
                 stream.writeWordBigEndian(101);
                 stream.writeWordBigEndian(233);
                 stream.writeWord(45092);
-                if ((int) (Math.random() * 2D) == 0) {
+                if ((int) (ThreadLocalRandom.current().nextDouble() * 2D) == 0) {
                     stream.writeWord(35784);
                 }
-                stream.writeWordBigEndian((int) (Math.random() * 256D));
+                stream.writeWordBigEndian((int) (ThreadLocalRandom.current().nextDouble() * 256D));
                 stream.writeWordBigEndian(64);
                 stream.writeWordBigEndian(38);
-                stream.writeWord((int) (Math.random() * 65536D));
-                stream.writeWord((int) (Math.random() * 65536D));
+                stream.writeWord((int) (ThreadLocalRandom.current().nextDouble() * 65536D));
+                stream.writeWord((int) (ThreadLocalRandom.current().nextDouble() * 65536D));
                 stream.writeBytes(stream.currentOffset - i2);
             }
             int j2 = k1 * 192;
@@ -12482,7 +12484,7 @@ public class Game extends RSApplet {
         int l1 = xCameraCurve;
         for (int i2 = 0; i2 < 5; i2++) {
             if (aBooleanArray876[i2]) {
-                int j2 = (int) (Math.random() * (double) (anIntArray873[i2] * 2 + 1) - (double) anIntArray873[i2] + Math.sin((double) anIntArray1030[i2] * (double) anIntArray928[i2] / 100D) * (double) anIntArray1203[i2]);
+                int j2 = (int) (ThreadLocalRandom.current().nextDouble() * (double) (anIntArray873[i2] * 2 + 1) - (double) anIntArray873[i2] + Math.sin((double) anIntArray1030[i2] * (double) anIntArray928[i2] / 100D) * (double) anIntArray1203[i2]);
                 if (i2 == 0) {
                     xCameraPos += j2;
                 }

@@ -1,5 +1,7 @@
 package com.rs2.game.content.minigames;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import com.rs2.game.content.quests.QuestRewards;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
@@ -25,7 +27,7 @@ public class Barrows {
 	 * @return
 	 */
 	public int randomBarrows() {
-		return Barrows[(int)(Math.random()*Barrows.length)];
+		return Barrows[(int)(ThreadLocalRandom.current().nextDouble()*Barrows.length)];
 	}
 
 	/**
@@ -33,7 +35,7 @@ public class Barrows {
 	 * @return
 	 */
 	public int randomRunes() {
-		return Runes[(int) (Math.random()*Runes.length)];
+		return Runes[(int) (ThreadLocalRandom.current().nextDouble()*Runes.length)];
 	}
 	
 	/**
@@ -41,7 +43,7 @@ public class Barrows {
 	 * @return
 	 */
 	public int randomPots() {
-		return Pots[(int) (Math.random()*Pots.length)];
+		return Pots[(int) (ThreadLocalRandom.current().nextDouble()*Pots.length)];
 	}
 	
 	/**

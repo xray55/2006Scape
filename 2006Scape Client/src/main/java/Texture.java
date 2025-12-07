@@ -2,6 +2,8 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
+import java.util.concurrent.ThreadLocalRandom;
+
 final class Texture extends DrawingArea {
 
 	public static void nullLoader() {
@@ -180,7 +182,7 @@ final class Texture extends DrawingArea {
 	}
 
 	public static void method372(double d) {
-		d += Math.random() * 0.029999999999999999D - 0.014999999999999999D;
+		d += ThreadLocalRandom.current().nextDouble() * 0.029999999999999999D - 0.014999999999999999D;
 		int j = 0;
 		for (int k = 0; k < 512; k++) {
 			double d1 = k / 8 / 64D + 0.0078125D;

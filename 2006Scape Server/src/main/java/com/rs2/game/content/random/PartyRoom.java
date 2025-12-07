@@ -2,6 +2,7 @@ package com.rs2.game.content.random;
 
 import java.awt.Point;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.rs2.Constants;
 import org.apollo.cache.def.ItemDefinition;
@@ -51,7 +52,7 @@ public class PartyRoom {
 			while (roomItemsN[i] > 0) {
 				int x = r.nextInt(balloons.length);
 				int y = r.nextInt(balloons[0].length);
-				int amt = split > 0 ? Math.max(1, (int) (Math.random() * roomItemsN[i])) : roomItemsN[i];
+				int amt = split > 0 ? Math.max(1, (int) (ThreadLocalRandom.current().nextDouble() * roomItemsN[i])) : roomItemsN[i];
 				// If already balloons there, or on the table, retry
 				while ((balloons[x][y] != null || Boundary.isIn(corner.x + x, corner.y + y, Boundary.PARTY_ROOM_TABLE)) && trys < maxTry) {
 					x = r.nextInt(balloons.length);

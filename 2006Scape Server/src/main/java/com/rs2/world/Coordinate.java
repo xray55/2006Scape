@@ -68,8 +68,7 @@ public class Coordinate {
 		if (obj == null) {
 			return false;
 		}
-		if (obj instanceof Coordinate) {
-			Coordinate other = (Coordinate) obj;
+		if (obj instanceof Coordinate other) {
 			return x == other.x && y == other.y && h == other.h;
 		}
 		return false;

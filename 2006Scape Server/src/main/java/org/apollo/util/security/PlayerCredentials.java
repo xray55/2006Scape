@@ -127,8 +127,7 @@ public final class PlayerCredentials {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof PlayerCredentials) {
-			PlayerCredentials other = (PlayerCredentials) obj;
+		if (obj instanceof PlayerCredentials other) {
 			return encodedUsername == other.encodedUsername;
 		}
 

@@ -2,6 +2,8 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3)
 
+import java.util.concurrent.ThreadLocalRandom;
+
 final class ObjectManager {
 
 	public ObjectManager(byte abyte0[][][], int ai[][][]) {
@@ -49,14 +51,14 @@ final class ObjectManager {
 			}
 
 		}
-		anInt123 += (int) (Math.random() * 5D) - 2;
+		anInt123 += (int) (ThreadLocalRandom.current().nextDouble() * 5D) - 2;
 		if (anInt123 < -8) {
 			anInt123 = -8;
 		}
 		if (anInt123 > 8) {
 			anInt123 = 8;
 		}
-		anInt133 += (int) (Math.random() * 5D) - 2;
+		anInt133 += (int) (ThreadLocalRandom.current().nextDouble() * 5D) - 2;
 		if (anInt133 < -16) {
 			anInt133 = -16;
 		}
@@ -517,8 +519,8 @@ final class ObjectManager {
 				}
 				if (worldController.method284(l2, byte0, k2, l4, ((Animable) obj1), j4, k, i5, i, l) && class46.aBoolean779) {
 					Model model;
-					if (obj1 instanceof Model) {
-						model = (Model) obj1;
+					if (obj1 instanceof Model model1) {
+						model = model1;
 					} else {
 						model = class46.method578(10, j1, k1, l1, i2, j2, -1);
 					}
@@ -1331,7 +1333,7 @@ final class ObjectManager {
 		}
 	}
 
-	private static int anInt123 = (int) (Math.random() * 17D) - 8;
+	private static int anInt123 = (int) (ThreadLocalRandom.current().nextDouble() * 17D) - 8;
 	private final int[] anIntArray124;
 	private final int[] anIntArray125;
 	private final int[] anIntArray126;
@@ -1340,7 +1342,7 @@ final class ObjectManager {
 	private final int[][][] anIntArrayArrayArray129;
 	private final byte[][][] aByteArrayArrayArray130;
 	static int anInt131;
-	private static int anInt133 = (int) (Math.random() * 33D) - 16;
+	private static int anInt133 = (int) (ThreadLocalRandom.current().nextDouble() * 33D) - 16;
 	private final byte[][][] aByteArrayArrayArray134;
 	private final int[][][] anIntArrayArrayArray135;
 	private final byte[][][] aByteArrayArrayArray136;

@@ -7,6 +7,7 @@ import java.io.RandomAccessFile;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
@@ -26,7 +27,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public final class Signlink implements Runnable {
 
 	public static final void startpriv(InetAddress inetaddress) {
-		threadliveid = (int) (Math.random() * 99999999D);
+		threadliveid = (int) (ThreadLocalRandom.current().nextDouble() * 99999999D);
 		if (active) {
 			try {
 				Thread.sleep(500L);
@@ -198,8 +199,8 @@ public final class Signlink implements Runnable {
 			e.printStackTrace();
 			return;
 		}
-		if (music instanceof Synthesizer) {
-			synthesizer = (Synthesizer) music;
+		if (music instanceof Synthesizer synthesizer1) {
+			synthesizer = synthesizer1;
 		} else {
 			try {
 				synthesizer = MidiSystem.getSynthesizer();

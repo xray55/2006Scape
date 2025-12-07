@@ -4,6 +4,7 @@
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.concurrent.ThreadLocalRandom;
 
 public final class Flo {
 
@@ -123,19 +124,19 @@ public final class Flo {
 			anInt398 = 1;
 		}
 		anInt397 = (int) (d5 * anInt398);
-		int k = anInt394 + (int) (Math.random() * 16D) - 8;
+		int k = anInt394 + (int) (ThreadLocalRandom.current().nextDouble() * 16D) - 8;
 		if (k < 0) {
 			k = 0;
 		} else if (k > 255) {
 			k = 255;
 		}
-		int l = anInt395 + (int) (Math.random() * 48D) - 24;
+		int l = anInt395 + (int) (ThreadLocalRandom.current().nextDouble() * 48D) - 24;
 		if (l < 0) {
 			l = 0;
 		} else if (l > 255) {
 			l = 255;
 		}
-		int i1 = anInt396 + (int) (Math.random() * 48D) - 24;
+		int i1 = anInt396 + (int) (ThreadLocalRandom.current().nextDouble() * 48D) - 24;
 		if (i1 < 0) {
 			i1 = 0;
 		} else if (i1 > 255) {

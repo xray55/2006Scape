@@ -32,8 +32,7 @@ public final class FileDescriptor {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof FileDescriptor) {
-			FileDescriptor other = (FileDescriptor) obj;
+		if (obj instanceof FileDescriptor other) {
 			return type == other.type && file == other.file;
 		}
 

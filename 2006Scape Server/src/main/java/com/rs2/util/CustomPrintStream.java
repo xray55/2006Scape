@@ -50,7 +50,7 @@ public class CustomPrintStream extends PrintStream {
         }
 
         // Construct log message
-        String logMessage = String.format("[%s] [%s] [%s] %s", dateFormat.format(new Date()), logType.toUpperCase(), caller, message);
+        String logMessage = "[%s] [%s] [%s] %s".formatted(dateFormat.format(new Date()), logType.toUpperCase(), caller, message);
 
         // Print to console and file
         super.println(logMessage);

@@ -1,6 +1,7 @@
 package com.rs2.integrations;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 
 import com.rs2.Constants;
@@ -13,7 +14,7 @@ public class PlayersOnlineWebsite {
 
     private static void setWebsitePlayersOnline(int amount) throws IOException {
         URL url;
-        url = new URL(Constants.WEBSITE_LINK + "/playersonline.php?pass=" + password + "&amount=" + amount + "&world=" + Constants.WORLD);
+        url = URI.create(Constants.WEBSITE_LINK + "/playersonline.php?pass=" + password + "&amount=" + amount + "&world=" + Constants.WORLD).toURL();
         url.openStream().close();
     }
 

@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Date;
 import java.util.Optional;
 
@@ -45,7 +44,7 @@ public final class HttpRequestWorker extends RequestWorker<HttpRequest, Resource
 	/**
 	 * The directory with web files.
 	 */
-	private static final Path WWW_DIRECTORY = Paths.get("data/www");
+	private static final Path WWW_DIRECTORY = Path.of("data/www");
 
 	/**
 	 * Creates the HTTP request worker.
@@ -123,7 +122,7 @@ public final class HttpRequestWorker extends RequestWorker<HttpRequest, Resource
 		HttpResponseStatus status = HttpResponseStatus.OK;
 		String mime = getMimeType(request.getUri());
 
-		if (!buf.isPresent()) {
+		if (buf.isEmpty()) {
 			status = HttpResponseStatus.NOT_FOUND;
 			mime = "text/html";
 		}

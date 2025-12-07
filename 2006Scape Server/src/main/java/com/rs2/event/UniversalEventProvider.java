@@ -41,7 +41,7 @@ public final class UniversalEventProvider implements EventProvider {
 
 	private void checkSubscriber(EventSubscriber<?> subscriber, Consumer<SubscribesTo> consumer) {
 		Optional<SubscribesTo> optional = ClassUtils.getAnnotation(subscriber.getClass(), SubscribesTo.class);
-		Preconditions.checkArgument(optional.isPresent(), String.format("%s is not annotated with @SubscribesTo", subscriber.getClass()));
+		Preconditions.checkArgument(optional.isPresent(), "%s is not annotated with @SubscribesTo".formatted(subscriber.getClass()));
 		consumer.accept(optional.get());
 	}
 

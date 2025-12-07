@@ -3,7 +3,7 @@ package org.apollo.cache.tools;
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 
 import org.apollo.cache.IndexedFileSystem;
 import org.apollo.cache.decoder.ItemDefinitionDecoder;
@@ -31,7 +31,7 @@ public final class EquipmentUpdater {
 		String release = args[0];
 
 		try (DataOutputStream os = new DataOutputStream(new BufferedOutputStream(new FileOutputStream("data/equipment-" + release + ".dat")));
-			IndexedFileSystem fs = new IndexedFileSystem(Paths.get("data/fs/", release), true)) {
+			IndexedFileSystem fs = new IndexedFileSystem(Path.of("data/fs/", release), true)) {
 			ItemDefinitionDecoder decoder = new ItemDefinitionDecoder(fs);
 			decoder.run();
 

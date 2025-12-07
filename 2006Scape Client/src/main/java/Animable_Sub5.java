@@ -2,6 +2,8 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
+import java.util.concurrent.ThreadLocalRandom;
+
 final class Animable_Sub5 extends Animable {
 
 	@Override
@@ -75,8 +77,8 @@ final class Animable_Sub5 extends Animable {
 			anInt1599 = 0;
 			anInt1608 = Game.loopCycle;
 			if (flag && aAnimation_1607.anInt356 != -1) {
-				anInt1599 = (int) (Math.random() * aAnimation_1607.anInt352);
-				anInt1608 -= (int) (Math.random() * aAnimation_1607.method258(anInt1599));
+				anInt1599 = (int) (ThreadLocalRandom.current().nextDouble() * aAnimation_1607.anInt352);
+				anInt1608 -= (int) (ThreadLocalRandom.current().nextDouble() * aAnimation_1607.method258(anInt1599));
 			}
 		}
 		ObjectDef class46 = ObjectDef.forID(anInt1610);

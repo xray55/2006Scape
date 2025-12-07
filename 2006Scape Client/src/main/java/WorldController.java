@@ -181,8 +181,8 @@ final class WorldController {
 		Ground class30_sub3 = groundArray[l][i][i1];
 		if (class30_sub3 != null) {
 			for (int k1 = 0; k1 < class30_sub3.anInt1317; k1++) {
-				if (class30_sub3.obj5Array[k1].aClass30_Sub2_Sub4_521 instanceof Model) {
-					int l1 = ((Model) class30_sub3.obj5Array[k1].aClass30_Sub2_Sub4_521).anInt1654;
+				if (class30_sub3.obj5Array[k1].aClass30_Sub2_Sub4_521 instanceof Model model) {
+					int l1 = model.anInt1654;
 					if (l1 > j1) {
 						j1 = l1;
 					}
