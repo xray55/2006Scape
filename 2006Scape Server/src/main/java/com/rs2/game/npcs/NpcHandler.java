@@ -41,13 +41,13 @@ import static com.rs2.game.content.StaticNpcList.*;
 
 public class NpcHandler {
 
-    public static int     MAX_NPCS      = 4000;
-    public static int     maxListedNPCs = 4000;
-    public static Npc     npcs[]        = new Npc[MAX_NPCS];
-    public static NpcList NpcList[]     = new NpcList[maxListedNPCs];
+    public static int MAX_NPCS = 4000;
+    public static int maxListedNPCs = 4000;
+    public static Npc npcs[] = new Npc[MAX_NPCS];
+    public static NpcList NpcList[] = new NpcList[maxListedNPCs];
 
     public void spawnSecondForm(Player c, final int i) {
-        //	npcs[i].gfx0(1055);
+        // npcs[i].gfx0(1055);
         CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
             @Override
             public void execute(CycleEventContainer container) {
@@ -93,10 +93,13 @@ public class NpcHandler {
                 }
             }
         }
-        final Client slaveOwner = (PlayerHandler.players[npcs[npcIndex].summonedBy] != null ? (Client) PlayerHandler.players[npcs[npcIndex].summonedBy] : null);
+        final Client slaveOwner = (PlayerHandler.players[npcs[npcIndex].summonedBy] != null
+                ? (Client) PlayerHandler.players[npcs[npcIndex].summonedBy]
+                : null);
         if (foundRat == -1) {
             if (slaveOwner != null) {
-                slaveOwner.getPacketSender().sendMessage("The " + getNpcListName(NpcHandler.npcs[npcIndex].npcType) + " can't seem to find any rats nearby.");
+                slaveOwner.getPacketSender().sendMessage("The " + getNpcListName(NpcHandler.npcs[npcIndex].npcType)
+                        + " can't seem to find any rats nearby.");
             }
         } else {
             npcs[npcIndex].chasingRat = foundRat;
@@ -104,32 +107,37 @@ public class NpcHandler {
             CycleEventHandler.getSingleton().addEvent(this, new CycleEvent() {
                 @Override
                 public void execute(CycleEventContainer container) {
-                    if (npcs[npcIndex].absX == npcs[npcs[npcIndex].chasingRat].absX && npcs[npcIndex].absY == npcs[npcs[npcIndex].chasingRat].absY && (beatChance || npcs[npcIndex].npcType >= CAT && npcs[npcIndex].npcType <= CAT_773)) {
+                    if (npcs[npcIndex].absX == npcs[npcs[npcIndex].chasingRat].absX
+                            && npcs[npcIndex].absY == npcs[npcs[npcIndex].chasingRat].absY
+                            && (beatChance || npcs[npcIndex].npcType >= CAT && npcs[npcIndex].npcType <= CAT_773)) {
                         npcs[npcs[npcIndex].chasingRat].isDead = true;
                         npcs[npcs[npcIndex].chasingRat].forceChat("Eek!");
                         npcs[npcIndex].forceChat("Meow!");
-                        //startAnimation(9163, npcIndex);
-                        slaveOwner.getPacketSender().sendMessage("The " + getNpcListName(NpcHandler.npcs[npcIndex].npcType) + " caught a rat!");
-						if (npcs[npcIndex].npcType >= KITTEN_761 && npcs[npcIndex].npcType <= KITTEN_766) {
-							slaveOwner.ratsCaught++;
-						}
+                        // startAnimation(9163, npcIndex);
+                        slaveOwner.getPacketSender().sendMessage(
+                                "The " + getNpcListName(NpcHandler.npcs[npcIndex].npcType) + " caught a rat!");
+                        if (npcs[npcIndex].npcType >= KITTEN_761 && npcs[npcIndex].npcType <= KITTEN_766) {
+                            slaveOwner.ratsCaught++;
+                        }
                         if (slaveOwner.ratsCaught == Pets.RATS_NEEDED_TO_GROW) {
                             slaveOwner.getPacketSender().sendMessage("Your kitten has grown into a cat!");
-                            int   newNpcId = npcs[npcIndex].npcType + 7;
-                            int[] coords   = { npcs[npcIndex].absX, npcs[npcIndex].absY, npcs[npcIndex].heightLevel };
-                            spawnNpc3(slaveOwner, newNpcId, coords[0], coords[1], coords[2], 0, 120, 25, 200, 200, true, false, true);
+                            int newNpcId = npcs[npcIndex].npcType + 7;
+                            int[] coords = { npcs[npcIndex].absX, npcs[npcIndex].absY, npcs[npcIndex].heightLevel };
+                            spawnNpc3(slaveOwner, newNpcId, coords[0], coords[1], coords[2], 0, 120, 25, 200, 200, true,
+                                    false, true);
                             npcs[npcIndex].absX = 0;
                             npcs[npcIndex].absY = 0;
                             npcs[npcIndex] = null;
-                            //Spawns grown cat in spot of kitten.
+                            // Spawns grown cat in spot of kitten.
                             slaveOwner.summonId = Pets.summonItemId(newNpcId);
                             slaveOwner.ratsCaught = 0;
                         }
                         npcs[npcIndex].chasingRat = -1;
                     } else {
-						if (slaveOwner != null) {
-							slaveOwner.getPacketSender().sendMessage("The " + getNpcListName(NpcHandler.npcs[npcIndex].npcType) + " failed to catch the rat.");
-						}
+                        if (slaveOwner != null) {
+                            slaveOwner.getPacketSender().sendMessage("The "
+                                    + getNpcListName(NpcHandler.npcs[npcIndex].npcType) + " failed to catch the rat.");
+                        }
                         npcs[npcIndex].chasingRat = -1;
                     }
                     container.stop();
@@ -164,17 +172,17 @@ public class NpcHandler {
 
     public static boolean isUndead(int index) {
         String name = getNpcListName(npcs[index].npcType);
-		for (String s : Constants.UNDEAD) {
-			if (s.equalsIgnoreCase(name)) {
-				return true;
-			}
-		}
+        for (String s : Constants.UNDEAD) {
+            if (s.equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
         return false;
     }
 
     public void spawnNpc3(Player c, int npcType, int x, int y, int heightLevel,
-                          int WalkingType, int HP, int maxHit, int attack, int defence,
-                          boolean attackPlayer, boolean headIcon, boolean summonFollow) {
+            int WalkingType, int HP, int maxHit, int attack, int defence,
+            boolean attackPlayer, boolean headIcon, boolean summonFollow) {
         int slot = -1;
         for (int i = 1; i < MAX_NPCS; i++) {
             if (npcs[i] == null) {
@@ -217,7 +225,7 @@ public class NpcHandler {
         npcs[slot] = newNPC;
     }
 
-    public boolean switchesAttackers(int i) { // This seems unused, that's probably not good 
+    public boolean switchesAttackers(int i) { // This seems unused, that's probably not good
         switch (npcs[i].npcType) {
             case DWARVEN_MINER_2551:
             case DWARVEN_MINER_2552:
@@ -241,8 +249,10 @@ public class NpcHandler {
                 if (j == npcs[i].spawnedBy) {
                     return j;
                 }
-                if (goodDistance(PlayerHandler.players[j].absX, PlayerHandler.players[j].absY, npcs[i].absX, npcs[i].absY, 2 + distanceRequired(i) + followDistance(i)) || FightCaves.isFightCaveNpc(i)) {
-                    if (PlayerHandler.players[j].underAttackBy <= 0 && PlayerHandler.players[j].underAttackBy2 <= 0 || Boundary.isIn(PlayerHandler.players[j], Boundary.MULTI)) {
+                if (goodDistance(PlayerHandler.players[j].absX, PlayerHandler.players[j].absY, npcs[i].absX,
+                        npcs[i].absY, 2 + distanceRequired(i) + followDistance(i)) || FightCaves.isFightCaveNpc(i)) {
+                    if (PlayerHandler.players[j].underAttackBy <= 0 && PlayerHandler.players[j].underAttackBy2 <= 0
+                            || Boundary.isIn(PlayerHandler.players[j], Boundary.MULTI)) {
                         if (PlayerHandler.players[j].heightLevel == npcs[i].heightLevel) {
                             return j;
                         }
@@ -257,8 +267,8 @@ public class NpcHandler {
      * Summon npc, barrows, etc
      **/
     public static void spawnNpc(Player client, int npcType, int x, int y,
-                                int heightLevel, int WalkingType, int HP, int maxHit, int attack,
-                                int defence, boolean attackPlayer, boolean headIcon) {
+            int heightLevel, int WalkingType, int HP, int maxHit, int attack,
+            int defence, boolean attackPlayer, boolean headIcon) {
         // first, search for a free slot
         int slot = -1;
         for (int i = 1; i < MAX_NPCS; i++) {
@@ -305,7 +315,8 @@ public class NpcHandler {
         npcs[slot] = newNPC;
     }
 
-    public void spawnNpc2(int npcType, int x, int y, int heightLevel, int WalkingType, int HP, int maxHit, int attack, int defence, boolean attackPlayer) {
+    public void spawnNpc2(int npcType, int x, int y, int heightLevel, int WalkingType, int HP, int maxHit, int attack,
+            int defence, boolean attackPlayer) {
         // first, search for a free slot
         int slot = -1;
         for (int i = 1; i < MAX_NPCS; i++) {
@@ -367,7 +378,7 @@ public class NpcHandler {
     }
 
     public void newNPC(int npcType, int x, int y, int heightLevel,
-                       int WalkingType, int HP, int maxHit, int attack, int defence) {
+            int WalkingType, int HP, int maxHit, int attack, int defence) {
         // first, search for a free slot
         int slot = -1;
         for (int i = 1; i < MAX_NPCS; i++) {
@@ -426,7 +437,7 @@ public class NpcHandler {
 
     public int getKillerId(int playerId) {
         int oldDamage = 0;
-        int killerId  = 0;
+        int killerId = 0;
         for (int i = 1; i < PlayerHandler.players.length; i++) {
             if (PlayerHandler.players[i] != null) {
                 if (PlayerHandler.players[i].killedBy == playerId) {
@@ -464,8 +475,9 @@ public class NpcHandler {
                 if (slaveOwner != null
                         && slaveOwner.hasNpc
                         && !slaveOwner.goodDistance(npcs[i].getX(),
-                        npcs[i].getY(), slaveOwner.absX,
-                        slaveOwner.absY, 15) && npcs[i].summoner) {
+                                npcs[i].getY(), slaveOwner.absX,
+                                slaveOwner.absY, 15)
+                        && npcs[i].summoner) {
                     npcs[i].absX = slaveOwner.absX;
                     npcs[i].absY = slaveOwner.absY - 1;
                 }
@@ -526,7 +538,8 @@ public class NpcHandler {
                         npcs[i].forceChat("Baa!");
                     }
                 }
-                if (npcs[i].npcType == COW || npcs[i].npcType == COW_397 || npcs[i].npcType == COW_CALF || npcs[i].npcType == COW_1767 || npcs[i].npcType == COW_CALF_1768) {
+                if (npcs[i].npcType == COW || npcs[i].npcType == COW_397 || npcs[i].npcType == COW_CALF
+                        || npcs[i].npcType == COW_1767 || npcs[i].npcType == COW_CALF_1768) {
                     if (Misc.random(30) == 4) {
                         npcs[i].forceChat("Moo");
                     }
@@ -536,31 +549,33 @@ public class NpcHandler {
                         npcs[i].forceChat("Quack!");
                     }
                 }
-		    if (npcs[i].npcType == GRAVINGAS)
-		    {
-			    if (Misc.random(25) == 7) {
-				    int rand = Misc.random(25);
-				    if (rand <= 5)
-					    npcs[i].forceChat("Down with Necrovarus!!");
-				    else if (rand <= 10)
-					    npcs[i].forceChat("United we conquer - divided we fall!!");
-				    else if (rand <= 15)
-					    npcs[i].forceChat("We shall overcome!!");
-				    else if (rand <= 20)
-					    npcs[i].forceChat("Let Necrovarus know we want out!!");
-				    else
-					    npcs[i].forceChat("Don't stay silent - victory in numbers!!");
-			    }
-		    }    
+                if (npcs[i].npcType == GRAVINGAS) {
+                    if (Misc.random(25) == 7) {
+                        int rand = Misc.random(25);
+                        if (rand <= 5)
+                            npcs[i].forceChat("Down with Necrovarus!!");
+                        else if (rand <= 10)
+                            npcs[i].forceChat("United we conquer - divided we fall!!");
+                        else if (rand <= 15)
+                            npcs[i].forceChat("We shall overcome!!");
+                        else if (rand <= 20)
+                            npcs[i].forceChat("Let Necrovarus know we want out!!");
+                        else
+                            npcs[i].forceChat("Don't stay silent - victory in numbers!!");
+                    }
+                }
                 if (npcs[i].spawnedBy > 0) {
                     if (PlayerHandler.players[npcs[i].spawnedBy] == null
                             || PlayerHandler.players[npcs[i].spawnedBy].heightLevel != npcs[i].heightLevel
                             || PlayerHandler.players[npcs[i].spawnedBy].respawnTimer > 0
-                            || !PlayerHandler.players[npcs[i].spawnedBy].goodDistance(npcs[i].getX(), npcs[i].getY(), PlayerHandler.players[npcs[i].spawnedBy].getX(), PlayerHandler.players[npcs[i].spawnedBy].getY(), ((FightCaves.isFightCaveNpc(i)) ? 60 : 20))) {
+                            || !PlayerHandler.players[npcs[i].spawnedBy].goodDistance(npcs[i].getX(), npcs[i].getY(),
+                                    PlayerHandler.players[npcs[i].spawnedBy].getX(),
+                                    PlayerHandler.players[npcs[i].spawnedBy].getY(),
+                                    ((FightCaves.isFightCaveNpc(i)) ? 60 : 20))) {
 
                         if (npcs[i].npcType == FightCaves.YT_HURKOT) {
-                            Player c       = ((Client) PlayerHandler.players[npcs[i].spawnedBy]);
-                            int    ranHeal = Misc.random(10);
+                            Player c = ((Client) PlayerHandler.players[npcs[i].spawnedBy]);
+                            int ranHeal = Misc.random(10);
                             if (ranHeal == 10) {
                                 FightCaves.healJad(c, i);
                             }
@@ -583,7 +598,9 @@ public class NpcHandler {
 
                 Player client = (Client) PlayerHandler.players[NpcData.getCloseRandomPlayer(i)];
                 if (client != null) {
-                    boolean aggressive = (NpcAggressive.isAggressive(i) || getNpcListCombat(npcs[i].npcType) * 2 > client.combatLevel && getNpcListAggressive(npcs[i].npcType));
+                    boolean aggressive = (NpcAggressive.isAggressive(i)
+                            || getNpcListCombat(npcs[i].npcType) * 2 > client.combatLevel
+                                    && getNpcListAggressive(npcs[i].npcType));
                     if (aggressive && !npcs[i].underAttack && !npcs[i].isDead && npcs[i].MaxHP > 0) {
                         npcs[i].killerId = NpcData.getCloseRandomPlayer(i);
                     }
@@ -593,7 +610,8 @@ public class NpcHandler {
                     npcs[i].underAttackBy = 0;
                 }
 
-                if ((npcs[i].killerId > 0 || npcs[i].underAttack) && !npcs[i].walkingHome && retaliates(npcs[i].npcType)) {
+                if ((npcs[i].killerId > 0 || npcs[i].underAttack) && !npcs[i].walkingHome
+                        && retaliates(npcs[i].npcType)) {
                     if (!npcs[i].isDead) {
                         int p = npcs[i].killerId;
                         if (PlayerHandler.players[p] != null) {
@@ -628,11 +646,11 @@ public class NpcHandler {
                         if (npcs[i].absX > npcs[i].makeX
                                 + Constants.NPC_RANDOM_WALK_DISTANCE
                                 || npcs[i].absX < npcs[i].makeX
-                                - Constants.NPC_RANDOM_WALK_DISTANCE
+                                        - Constants.NPC_RANDOM_WALK_DISTANCE
                                 || npcs[i].absY > npcs[i].makeY
-                                + Constants.NPC_RANDOM_WALK_DISTANCE
+                                        + Constants.NPC_RANDOM_WALK_DISTANCE
                                 || npcs[i].absY < npcs[i].makeY
-                                - Constants.NPC_RANDOM_WALK_DISTANCE) {
+                                        - Constants.NPC_RANDOM_WALK_DISTANCE) {
                             npcs[i].walkingHome = true;
                         }
                     }
@@ -676,7 +694,7 @@ public class NpcHandler {
                         if (Misc.random(3) == 1 && !npcs[i].walkingHome) {
                             int MoveX = 0;
                             int MoveY = 0;
-                            int Rnd   = Misc.random(9);
+                            int Rnd = Misc.random(9);
                             if (Rnd == 1) {
                                 MoveX = 1;
                                 MoveY = 1;
@@ -747,7 +765,8 @@ public class NpcHandler {
                         if (c != null) {
                             npcs[i].animNumber = NpcEmotes.getDeadEmote(c, i); // dead emote
                             if (CombatConstants.COMBAT_SOUNDS) {
-                                if (PestControl.npcIsPCMonster(NpcHandler.npcs[i].npcType) || PestControl.isPCPortal(NpcHandler.npcs[i].npcType)) {
+                                if (PestControl.npcIsPCMonster(NpcHandler.npcs[i].npcType)
+                                        || PestControl.isPCPortal(NpcHandler.npcs[i].npcType)) {
                                     return;
                                 }
                                 c.getPacketSender().sendSound(CombatSounds.getNpcDeathSounds(npcs[i].npcType), 100, 0);
@@ -762,8 +781,12 @@ public class NpcHandler {
                         resetPlayersInCombat(i);
                         if (!crypt && !barrows && c != null) {
                             c.incrementNpcKillCount(npcs[i].npcType, 1);
-                            if (c.displayRegularKcMessages || (c.displayBossKcMessages && Constants.BOSS_NPC_IDS.contains(npcs[i].npcType)) || (c.displaySlayerKcMessages && Constants.SLAYER_NPC_IDS.contains(npcs[i].npcType))) {
-                                c.getPacketSender().sendMessage("Your " + npcs[i].name() + " kill count is now: " + c.getNpcKillCount(npcs[i].npcType));
+                            if (c.displayRegularKcMessages
+                                    || (c.displayBossKcMessages && Constants.BOSS_NPC_IDS.contains(npcs[i].npcType))
+                                    || (c.displaySlayerKcMessages
+                                            && Constants.SLAYER_NPC_IDS.contains(npcs[i].npcType))) {
+                                c.getPacketSender().sendMessage("Your " + npcs[i].name() + " kill count is now: "
+                                        + c.getNpcKillCount(npcs[i].npcType));
                             }
                         }
                     } else if (npcs[i].actionTimer == 0
@@ -804,7 +827,8 @@ public class NpcHandler {
                         }
                         if (npcs[i].npcType > RABBIT_3726 && npcs[i].npcType < SHIFTER) {
                             int damage = 10 + Misc.random(10);
-                            player.playerLevel[Constants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS]) - damage;
+                            player.playerLevel[Constants.HITPOINTS] = player.getPlayerAssistant()
+                                    .getLevelForXP(player.playerXP[Constants.HITPOINTS]) - damage;
                             player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
                             player.handleHitMask(damage);
                         }
@@ -923,14 +947,14 @@ public class NpcHandler {
 
     public static boolean multiAttacks(int i) {
         switch (npcs[i].npcType) {
-            case KALPHITE_QUEEN: //kq
-				if (npcs[i].attackType == AttackType.MAGIC.getValue()) {
-					return true;
-				}
-            case KALPHITE_QUEEN_1160: //kq
-				if (npcs[i].attackType == AttackType.RANGE.getValue()) {
-					return true;
-				}
+            case KALPHITE_QUEEN: // kq
+                if (npcs[i].attackType == AttackType.MAGIC.getValue()) {
+                    return true;
+                }
+            case KALPHITE_QUEEN_1160: // kq
+                if (npcs[i].attackType == AttackType.RANGE.getValue()) {
+                    return true;
+                }
             default:
                 return false;
         }
@@ -1057,11 +1081,13 @@ public class NpcHandler {
                 return;
             }
             boolean isDropped = false;
-            for (ItemDrop possible_drop : NPCDropsHandler.getNpcDrops(getNpcListName(npcs[i].npcType).toLowerCase().replace(" ", "_"), npcs[i].npcType)) {
+            for (ItemDrop possible_drop : NPCDropsHandler
+                    .getNpcDrops(getNpcListName(npcs[i].npcType).toLowerCase().replace(" ", "_"), npcs[i].npcType)) {
                 if (Misc.random(possible_drop.getChance()) == 0 && !isDropped) {
                     int amt = possible_drop.getAmount();
-                    GameEngine.itemHandler.createGroundItem(c, possible_drop.getItemID(), npcs[i].absX, npcs[i].absY, amt, c.playerId);
-                    //Making sure items that always drop don't cost us our drop table roll
+                    GameEngine.itemHandler.createGroundItem(c, possible_drop.getItemID(), npcs[i].absX, npcs[i].absY,
+                            amt, c.playerId);
+                    // Making sure items that always drop don't cost us our drop table roll
                     if (possible_drop.getChance() > 1)
                         isDropped = true;
                 }
@@ -1069,34 +1095,41 @@ public class NpcHandler {
             switch (npcs[i].npcType) {
                 case PHEASANT:
                     FreakyForester.killedPheasant(c, 0);
-                    GameEngine.itemHandler.createGroundItem(c, StaticItemList.RAW_PHEASANT, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+                    GameEngine.itemHandler.createGroundItem(c, StaticItemList.RAW_PHEASANT, npcs[i].absX, npcs[i].absY,
+                            1, c.playerId);
                     break;
                 case PHEASANT_2460:
                     FreakyForester.killedPheasant(c, 1);
-                    GameEngine.itemHandler.createGroundItem(c, StaticItemList.RAW_PHEASANT, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+                    GameEngine.itemHandler.createGroundItem(c, StaticItemList.RAW_PHEASANT, npcs[i].absX, npcs[i].absY,
+                            1, c.playerId);
                     break;
                 case PHEASANT_2461:
                     FreakyForester.killedPheasant(c, 2);
-                    GameEngine.itemHandler.createGroundItem(c, StaticItemList.RAW_PHEASANT, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+                    GameEngine.itemHandler.createGroundItem(c, StaticItemList.RAW_PHEASANT, npcs[i].absX, npcs[i].absY,
+                            1, c.playerId);
                     break;
                 case PHEASANT_2462:
                     FreakyForester.killedPheasant(c, 3);
-                    GameEngine.itemHandler.createGroundItem(c, StaticItemList.RAW_PHEASANT, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+                    GameEngine.itemHandler.createGroundItem(c, StaticItemList.RAW_PHEASANT, npcs[i].absX, npcs[i].absY,
+                            1, c.playerId);
                     break;
                 case SKELETON_92:
                     if (c.restGhost == 3) {
-                        GameEngine.itemHandler.createGroundItem(c, StaticItemList.SKULL, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+                        GameEngine.itemHandler.createGroundItem(c, StaticItemList.SKULL, npcs[i].absX, npcs[i].absY, 1,
+                                c.playerId);
                         c.restGhost = 4;
                     }
                     break;
                 case RAT:
                     if (c.witchspot == 1 || c.romeojuliet > 0 && c.romeojuliet < 9) {
-                        GameEngine.itemHandler.createGroundItem(c, StaticItemList.RATS_TAIL, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+                        GameEngine.itemHandler.createGroundItem(c, StaticItemList.RATS_TAIL, npcs[i].absX, npcs[i].absY,
+                                1, c.playerId);
                     }
                     break;
                 case JONNY_THE_BEARD:
                     if (c.shieldArrav == 5) {
-                        GameEngine.itemHandler.createGroundItem(c, StaticItemList.SCROLL, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+                        GameEngine.itemHandler.createGroundItem(c, StaticItemList.SCROLL, npcs[i].absX, npcs[i].absY, 1,
+                                c.playerId);
                     }
                     break;
             }
@@ -1105,28 +1138,28 @@ public class NpcHandler {
             int chance = Math.max(128, 512 - (level * 2));
             if (Misc.random(1, chance) == 1) {
                 int scroll = -1;
-				if (level <= 1) // none
-				{
-					scroll = -1;
-				} else if (level <= 24) // easy
-				{
-					scroll = 2677;
-				} else if (level <= 40) // easy → medium
-				{
-					scroll = 2677 + Misc.random(0, 1);
-				} else if (level <= 80) // medium
-				{
-					scroll = 2678;
-				} else if (level <= 150) // medium → hard
-				{
-					scroll = 2678 + Misc.random(0, 1);
-				} else if (level > 150)// hard
-				{
-					scroll = 2679;
-				}
-				if (scroll >= 0 && Constants.CLUES_ENABLED) {
-					GameEngine.itemHandler.createGroundItem(c, scroll, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-				}
+                if (level <= 1) // none
+                {
+                    scroll = -1;
+                } else if (level <= 24) // easy
+                {
+                    scroll = 2677;
+                } else if (level <= 40) // easy → medium
+                {
+                    scroll = 2677 + Misc.random(0, 1);
+                } else if (level <= 80) // medium
+                {
+                    scroll = 2678;
+                } else if (level <= 150) // medium → hard
+                {
+                    scroll = 2678 + Misc.random(0, 1);
+                } else if (level > 150)// hard
+                {
+                    scroll = 2679;
+                }
+                if (scroll >= 0 && Constants.CLUES_ENABLED) {
+                    GameEngine.itemHandler.createGroundItem(c, scroll, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+                }
             }
         }
     }
@@ -1145,7 +1178,8 @@ public class NpcHandler {
                     int points = c.getSlayer().getDifficulty(c.slayerTask) * 4;
                     c.slayerTask = -1;
                     c.slayerPoints += points;
-                    c.getPacketSender().sendMessage("You completed your slayer task. You obtain " + points + " slayer points.");
+                    c.getPacketSender()
+                            .sendMessage("You completed your slayer task. You obtain " + points + " slayer points.");
                     c.getPacketSender().sendMessage("Please talk to your slayer master for a new task.");
                 }
             }
@@ -1235,35 +1269,35 @@ public class NpcHandler {
             return;
         }
 
-        Npc    npc    = npcs[i];
-        int    x      = npc.absX;
-        int    y      = npc.absY;
+        Npc npc = npcs[i];
+        int x = npc.absX;
+        int y = npc.absY;
         if (npcs[i].spawnedBy > 0
                 || x < npc.makeX + Constants.NPC_FOLLOW_DISTANCE
-                && x > npc.makeX - Constants.NPC_FOLLOW_DISTANCE
-                && y < npc.makeY + Constants.NPC_FOLLOW_DISTANCE
-                && y > npc.makeY - Constants.NPC_FOLLOW_DISTANCE) {
+                        && x > npc.makeX - Constants.NPC_FOLLOW_DISTANCE
+                        && y < npc.makeY + Constants.NPC_FOLLOW_DISTANCE
+                        && y > npc.makeY - Constants.NPC_FOLLOW_DISTANCE) {
             if (npc.heightLevel == player.heightLevel) {
                 if (player != null && npc != null) {
                     if (playerX > x && playerY < y) {
-                        npc.moveX = GetMove(x, playerX);//Diagonal bottom right
+                        npc.moveX = GetMove(x, playerX);// Diagonal bottom right
                     } else if (playerX < x && playerY < y) {
-                        npc.moveY = GetMove(y, playerY); //Diagonal bottom left
+                        npc.moveY = GetMove(y, playerY); // Diagonal bottom left
                     } else if (playerX < x && playerY > y) {
                         npc.moveX = GetMove(x, playerX);// Diagonal top left
                     } else if (playerX > x && playerY > y) {
                         npc.moveY = GetMove(y, playerY);// Diagonal top right
                     } else if (playerY < y) {
-                        npc.moveX = GetMove(x, playerX); //Move South to player
+                        npc.moveX = GetMove(x, playerX); // Move South to player
                         npc.moveY = GetMove(y, playerY);
                     } else if (playerY > y) {
-                        npc.moveX = GetMove(x, playerX); //Move North to player
+                        npc.moveX = GetMove(x, playerX); // Move North to player
                         npc.moveY = GetMove(y, playerY);
                     } else if (playerX < x) {
-                        npc.moveX = GetMove(x, playerX); //Move West to player
+                        npc.moveX = GetMove(x, playerX); // Move West to player
                         npc.moveY = GetMove(y, playerY);
                     } else if (playerX > x) {
-                        npc.moveX = GetMove(x, playerX); //Move East to player
+                        npc.moveX = GetMove(x, playerX); // Move East to player
                         npc.moveY = GetMove(y, playerY);
                     }
                     npc.facePlayer(player);
@@ -1281,8 +1315,9 @@ public class NpcHandler {
 
     /**
      * Distanced required to attack
-     * If NPCs are maging in melee distance check that the NPC ID is actually in here.
-     * It's also worth checking  {@link NpcData#distanceRequired}
+     * If NPCs are maging in melee distance check that the NPC ID is actually in
+     * here.
+     * It's also worth checking {@link NpcData#distanceRequired}
      **/
     public static int distanceRequired(int i) {
         switch (npcs[i].npcType) {
@@ -1374,7 +1409,7 @@ public class NpcHandler {
         // much
         if (goodDistance(npcs[i].getX(), npcs[i].getY(), c.getX(), c.getY(), 8)
                 && !goodDistance(npcs[i].getX(), npcs[i].getY(), c.getX(),
-                c.getY(), distanceRequired(i))) {
+                        c.getY(), distanceRequired(i))) {
             return true;
         }
         return false;
@@ -1401,15 +1436,14 @@ public class NpcHandler {
     }
 
     public static boolean goodDistance(int objectX, int objectY, int playerX,
-                                       int playerY, int distance) {
+            int playerY, int distance) {
         return objectX - playerX <= distance && objectX - playerX >= -distance
                 && objectY - playerY <= distance
                 && objectY - playerY >= -distance
-                && !((objectX - playerX == distance && objectY - playerY == -distance) //Detect diagonal positioning
-                || (objectX - playerX == -distance && objectY - playerY == -distance)
-                || (objectX - playerX == -distance && objectY - playerY == distance)
-                || (objectX - playerX == distance && objectY - playerY == distance))
-                ;
+                && !((objectX - playerX == distance && objectY - playerY == -distance) // Detect diagonal positioning
+                        || (objectX - playerX == -distance && objectY - playerY == -distance)
+                        || (objectX - playerX == -distance && objectY - playerY == distance)
+                        || (objectX - playerX == distance && objectY - playerY == distance));
     }
 
     public static int getMaxHit(int i) {
@@ -1459,15 +1493,15 @@ public class NpcHandler {
     }
 
     public boolean writeAutoSpawn(String FileName) {
-        String   line      = "";
-        String   token     = "";
-        String   token2    = "";
-        String   token2_2  = "";
-        String[] token3    = new String[10];
-        boolean  EndOfFile = false;
+        String line = "";
+        String token = "";
+        String token2 = "";
+        String token2_2 = "";
+        String[] token3 = new String[10];
+        boolean EndOfFile = false;
         // int ReadMode = 0;
         BufferedReader characterfile = null;
-        JSONArray      array         = new JSONArray();
+        JSONArray array = new JSONArray();
         try {
             characterfile = new BufferedReader(new FileReader(FileName));
         } catch (FileNotFoundException fileex) {
@@ -1515,7 +1549,7 @@ public class NpcHandler {
                         characterfile.close();
                     } catch (IOException ioexception) {
                     }
-                    //return true;
+                    // return true;
                 }
             }
             try {
@@ -1573,14 +1607,14 @@ public class NpcHandler {
     }
 
     public boolean writeNpcListJson(String FileName) {
-        String         line          = "";
-        String         token         = "";
-        String         token2        = "";
-        String         token2_2      = "";
-        String[]       token3        = new String[10];
-        boolean        EndOfFile     = false;
+        String line = "";
+        String token = "";
+        String token2 = "";
+        String token2_2 = "";
+        String[] token3 = new String[10];
+        boolean EndOfFile = false;
         BufferedReader characterfile = null;
-        JSONArray      array         = new JSONArray();
+        JSONArray array = new JSONArray();
         try {
             characterfile = new BufferedReader(new FileReader(FileName));
         } catch (FileNotFoundException fileex) {
@@ -1612,17 +1646,17 @@ public class NpcHandler {
                     object.put("combat", Integer.parseInt(token3[2]));
                     object.put("hitpoints", Integer.parseInt(token3[3]));
 
-					array.put(object);
+                    array.put(object);
                 }
             } else {
                 if (line.equals("[ENDOFNPCLIST]")) {
                     try {
-						FileWriter fileWriter = new FileWriter("npc-dump.json");
-						fileWriter.write(array.toString());
+                        FileWriter fileWriter = new FileWriter("npc-dump.json");
+                        fileWriter.write(array.toString());
                         characterfile.close();
                     } catch (IOException ioexception) {
                     }
-                    //return true;
+                    // return true;
                 }
             }
             try {

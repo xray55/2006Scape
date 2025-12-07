@@ -63,18 +63,19 @@ public class Doors {
         Doors d = getDoor(id, x, y, z);
 
         if (d == null) {
-            //System.out.println("D: " + id + " null debug x: " + x + " y: " + y + ".");
+            // System.out.println("D: " + id + " null debug x: " + x + " y: " + y + ".");
             return DoubleDoors.getSingleton().handleDoor(player, id, x, y, z);
         }
 
-        //todo: improvment: if player manage to get to door then open the door.
+        // todo: improvment: if player manage to get to door then open the door.
         if (player.distanceToPoint(x, y) > 1) {
-            //System.out.println("Door (single): " + id + " not in distance debug at x: " + x + " y: " + y + ".");
+            // System.out.println("Door (single): " + id + " not in distance debug at x: " +
+            // x + " y: " + y + ".");
             return false;
         }
 
-        //Remove clipping for old door (gets added back in placeObject)
-        //Region.removeClipping(x, y, z);
+        // Remove clipping for old door (gets added back in placeObject)
+        // Region.removeClipping(x, y, z);
 
         int xAdjustment = 0, yAdjustment = 0;
         if (d.type == 0) {
@@ -148,7 +149,8 @@ public class Doors {
                 d.doorId += 1;
             }
         }
-        GameEngine.objectHandler.placeObject(new Objects(d.doorId, d.doorX, d.doorY, d.doorZ, getNextFace(d), d.type, 0));
+        GameEngine.objectHandler
+                .placeObject(new Objects(d.doorId, d.doorX, d.doorY, d.doorZ, getNextFace(d), d.type, 0));
         return true;
     }
 
@@ -213,7 +215,7 @@ public class Doors {
 
     public void load() {
         Gson gson = new Gson();
-        //long start = System.currentTimeMillis();
+        // long start = System.currentTimeMillis();
         try {
             Type collectionType = new TypeToken<DoorData[]>() {
             }.getType();
@@ -221,14 +223,16 @@ public class Doors {
 
             for (DoorData data : doorData) {
                 for (DoorData.Location location : data.getLocations()) {
-                    doors.add(new Doors(data.getId(), location.getX(), location.getY(), location.getHeight(), data.getFace(), data.getType(), alreadyOpen(data.getId()) ? 1 : 0));
+                    doors.add(new Doors(data.getId(), location.getX(), location.getY(), location.getHeight(),
+                            data.getFace(), data.getType(), alreadyOpen(data.getId()) ? 1 : 0));
                 }
             }
-            //singleton.writeJsonDump();
+            // singleton.writeJsonDump();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        //System.out.println("Loaded "+ doors.size() +" doors in "+ (System.currentTimeMillis() - start) +" ms.");
+        // System.out.println("Loaded "+ doors.size() +" doors in "+
+        // (System.currentTimeMillis() - start) +" ms.");
     }
 
     private void writeJsonDump() throws FileNotFoundException {
@@ -240,24 +244,24 @@ public class Doors {
     }
 
     protected void processLine(String line) {
-        JSONArray array   = new JSONArray();
-        Scanner   scanner = new Scanner(line);
+        JSONArray array = new JSONArray();
+        Scanner scanner = new Scanner(line);
         scanner.useDelimiter(" ");
         try {
             while (scanner.hasNextLine()) {
-                int id     = Integer.parseInt(scanner.next());
-                int x      = Integer.parseInt(scanner.next());
-                int y      = Integer.parseInt(scanner.next());
-                int face   = Integer.parseInt(scanner.next());
+                int id = Integer.parseInt(scanner.next());
+                int x = Integer.parseInt(scanner.next());
+                int y = Integer.parseInt(scanner.next());
+                int face = Integer.parseInt(scanner.next());
                 int height = Integer.parseInt(scanner.next());
-                int type   = Integer.parseInt(scanner.next());
+                int type = Integer.parseInt(scanner.next());
 
                 JSONObject object = new JSONObject();
 
                 object.put("id", id);
 
-                JSONArray  jsonArray = new JSONArray();
-                JSONObject object1   = new JSONObject();
+                JSONArray jsonArray = new JSONArray();
+                JSONObject object1 = new JSONObject();
                 object1.put("x", x);
                 object1.put("y", y);
                 object1.put("height", height);

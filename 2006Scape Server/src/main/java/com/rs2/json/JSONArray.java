@@ -25,7 +25,8 @@ public class JSONArray {
 
     public int optInt(int index) {
         JsonElement e = arr.get(index);
-        if (e == null || e.isJsonNull()) return 0;
+        if (e == null || e.isJsonNull())
+            return 0;
         try {
             return e.getAsInt();
         } catch (Exception ex) {
@@ -40,16 +41,20 @@ public class JSONArray {
             arr.set(index, obj.getInternal());
         } else {
             // pad with nulls then add
-            while (arr.size() < index) arr.add((String) null);
+            while (arr.size() < index)
+                arr.add((String) null);
             arr.add(obj.getInternal());
         }
     }
 
     public void put(int index, int value) {
-        if (index == arr.size()) arr.add(value);
-        else if (index < arr.size()) arr.set(index, new com.google.gson.JsonPrimitive(value));
+        if (index == arr.size())
+            arr.add(value);
+        else if (index < arr.size())
+            arr.set(index, new com.google.gson.JsonPrimitive(value));
         else {
-            while (arr.size() < index) arr.add((String) null);
+            while (arr.size() < index)
+                arr.add((String) null);
             arr.add(value);
         }
     }

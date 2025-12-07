@@ -55,7 +55,7 @@ public class ShopHandler {
             shopName[i] = "";
         }
         totalshops = 0;
-        //writeShops("shops.cfg");
+        // writeShops("shops.cfg");
         loadShops();
     }
 
@@ -70,14 +70,15 @@ public class ShopHandler {
     public void process() {
         boolean DidUpdate = false;
         for (int i = 1; i <= totalshops; i++) {
-			if (shopBModifier[i] == 0 || shopSModifier[i] == 0) {
-				continue;
-			}
+            if (shopBModifier[i] == 0 || shopSModifier[i] == 0) {
+                continue;
+            }
             for (int j = 0; j < MAX_SHOP_ITEMS; j++) {
                 if (shopItems[i][j] > 0) {
                     if (shopItemsDelay[i][j] >= SHOW_DELAY) {
                         if (j <= shopItemsStandard[i] && shopItemsN[i][j] <= shopItemsSN[i][j]) {
-                            if (shopItemsN[i][j] < shopItemsSN[i][j] && System.currentTimeMillis() - shopItemsRestock[i][j] > restockTimeItem(shopItems[i][j])) {
+                            if (shopItemsN[i][j] < shopItemsSN[i][j] && System.currentTimeMillis()
+                                    - shopItemsRestock[i][j] > restockTimeItem(shopItems[i][j])) {
                                 shopItemsN[i][j] += 1;
                                 shopItemsDelay[i][j] = 1;
                                 shopItemsDelay[i][j] = 0;
@@ -101,16 +102,16 @@ public class ShopHandler {
         shopItemsN[shopID][ArrayID] -= 1;
         if (shopItemsN[shopID][ArrayID] <= 0) {
             shopItemsN[shopID][ArrayID] = 0;
-			if (shopItemsStandard[shopID] <= ArrayID) {
-				ResetItem(shopID, ArrayID);
-			}
+            if (shopItemsStandard[shopID] <= ArrayID) {
+                ResetItem(shopID, ArrayID);
+            }
         }
     }
 
     private static void ResetItem(int shopID, int ArrayID) {
-		if (shopItemsStandard[shopID] > ArrayID) {
-			return;
-		}
+        if (shopItemsStandard[shopID] > ArrayID) {
+            return;
+        }
         shopItems[shopID][ArrayID] = 0;
         shopItemsN[shopID][ArrayID] = 0;
         shopItemsDelay[shopID][ArrayID] = 0;
@@ -147,13 +148,13 @@ public class ShopHandler {
     }
 
     public boolean writeShops(String FileName) {
-        String         line          = "";
-        String         token         = "";
-        String         token2        = "";
-        String[]       token3        = new String[(MAX_SHOP_ITEMS * 2)];
-        boolean        EndOfFile     = false;
+        String line = "";
+        String token = "";
+        String token2 = "";
+        String[] token3 = new String[(MAX_SHOP_ITEMS * 2)];
+        boolean EndOfFile = false;
         BufferedReader characterfile = null;
-        JSONArray      array         = new JSONArray();
+        JSONArray array = new JSONArray();
         try {
             characterfile = new BufferedReader(new FileReader("./data/cfg/" + FileName));
         } catch (FileNotFoundException fileex) {
@@ -234,7 +235,7 @@ public class ShopHandler {
 
     public static void closePlayerShop(Client player) {
         for (int id = getEmptyshop(); id >= 0; id--) {
-			if (shopName[id].equals(player.properName + "'s Store")) {
+            if (shopName[id].equals(player.properName + "'s Store")) {
                 for (int i = 0; i < MAX_SHOP_ITEMS; i++) {
                     shopItems[id][i] = 0;
                     shopItemsN[id][i] = 0;
@@ -242,15 +243,15 @@ public class ShopHandler {
                     shopItemsDelay[id][i] = 0;
                 }
                 refreshshop(id);
-			}
+            }
         }
     }
 
     private static int getEmptyshop() {
         for (int i = 0; i < MAX_SHOPS; i++) {
-			if (shopName[i].equals("")) {
-				return i;
-			}
+            if (shopName[i].equals("")) {
+                return i;
+            }
         }
         return -1;
     }
@@ -301,6 +302,7 @@ public class ShopHandler {
     }
 
     public static boolean playerOwnsStore(int shop_id, Player player) {
-        return shopSModifier[shop_id] == 0 && shopBModifier[shop_id] == 0 && shopName[shop_id].equalsIgnoreCase(player.properName + "'s Store");
+        return shopSModifier[shop_id] == 0 && shopBModifier[shop_id] == 0
+                && shopName[shop_id].equalsIgnoreCase(player.properName + "'s Store");
     }
 }

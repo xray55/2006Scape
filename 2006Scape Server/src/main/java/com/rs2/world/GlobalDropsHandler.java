@@ -44,24 +44,25 @@ public class GlobalDropsHandler {
 
     private static final Set<GlobalDrop> spawnedDrops = new HashSet<>();
 
-
     /**
      * loads the items
      */
     public static void initialize() {
-        Gson           gson = new Gson();
+        Gson gson = new Gson();
         try {
             Type collectionType = new TypeToken<GlobalDropData[]>() {
             }.getType();
-            GlobalDropData[] globalDropData = gson.fromJson(new FileReader("./data/cfg/globaldrops.json"), collectionType);
+            GlobalDropData[] globalDropData = gson.fromJson(new FileReader("./data/cfg/globaldrops.json"),
+                    collectionType);
 
             for (GlobalDropData data : globalDropData) {
-				if (data.getHeight() > 0) {
-					globalDrops.add(new GlobalDrop(data.getId(), data.getAmount(), data.getItemX(), data.getItemY(), data.getHeight()));
-				} else {
-					globalDrops.add(new GlobalDrop(data.getId(), data.getAmount(), data.getItemX(), data.getItemY()));
-				}
-			}
+                if (data.getHeight() > 0) {
+                    globalDrops.add(new GlobalDrop(data.getId(), data.getAmount(), data.getItemX(), data.getItemY(),
+                            data.getHeight()));
+                } else {
+                    globalDrops.add(new GlobalDrop(data.getId(), data.getAmount(), data.getItemX(), data.getItemY()));
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,7 +79,8 @@ public class GlobalDropsHandler {
                                 if (System.currentTimeMillis() - drop.getTakenAt() >= TIME_TO_RESPAWN * 1000) {
                                     drop.setTaken(false);
                                     if (player2.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
-                                        player2.getPacketSender().createGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount(), drop.getHeight());
+                                        player2.getPacketSender().createGroundItem(drop.getId(), drop.getX(),
+                                                drop.getY(), drop.getAmount(), drop.getHeight());
                                         spawnedDrops.add(drop);
                                     }
 
@@ -97,9 +99,9 @@ public class GlobalDropsHandler {
     }
 
     public static void writeGlobalDropsDump() {
-        String         Data;
+        String Data;
         BufferedReader Checker;
-        JSONArray      array = new JSONArray();
+        JSONArray array = new JSONArray();
         try {
             Checker = new BufferedReader(new FileReader("./data/cfg/globaldrops.txt"));
             while ((Data = Checker.readLine()) != null) {
@@ -161,9 +163,9 @@ public class GlobalDropsHandler {
      * Pick up an item at the given location
      *
      * @param player the Player
-     * @param itemID       item id
-     * @param itemX       cord x
-     * @param itemY       cord y
+     * @param itemID item id
+     * @param itemX  cord x
+     * @param itemY  cord y
      */
     public static void pickup(Player player, int itemID, int itemX, int itemY) {
         GlobalDrop drop = itemExists(itemID, itemX, itemY);
@@ -174,7 +176,8 @@ public class GlobalDropsHandler {
             return;
         }
         if (player.getItemAssistant().freeSlots() < 1) {
-            if (!(player.getItemAssistant().playerHasItem(player.pItemId) && ItemDefinition.lookup(player.pItemId).isStackable())) {
+            if (!(player.getItemAssistant().playerHasItem(player.pItemId)
+                    && ItemDefinition.lookup(player.pItemId).isStackable())) {
                 player.getPacketSender().sendMessage("Not enough space in your inventory.");
                 return;
             }
@@ -198,8 +201,10 @@ public class GlobalDropsHandler {
      */
     public static void load(Client player) {
         for (GlobalDrop drop : globalDrops) {
-            if (!drop.isTaken() && !drop.isSpawned() && !itemExists(drop.getId(), drop.getX(), drop.getY(), true) && player.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
-                player.getPacketSender().createGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount(), drop.getHeight());
+            if (!drop.isTaken() && !drop.isSpawned() && !itemExists(drop.getId(), drop.getX(), drop.getY(), true)
+                    && player.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
+                player.getPacketSender().createGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount(),
+                        drop.getHeight());
                 spawnedDrops.add(drop);
                 drop.setSpawned(true);
             }
@@ -216,8 +221,10 @@ public class GlobalDropsHandler {
         globalDrops.clear();
         initialize();
         for (GlobalDrop drop : globalDrops) {
-            if (!drop.isTaken() && !drop.isSpawned() && !itemExists(drop.getId(), drop.getX(), drop.getY(), true) && c.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
-                c.getPacketSender().createGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount(), drop.getHeight());
+            if (!drop.isTaken() && !drop.isSpawned() && !itemExists(drop.getId(), drop.getX(), drop.getY(), true)
+                    && c.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
+                c.getPacketSender().createGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount(),
+                        drop.getHeight());
                 spawnedDrops.add(drop);
                 drop.setSpawned(true);
             }
@@ -244,11 +251,11 @@ public class GlobalDropsHandler {
         /**
          * item id
          */
-        int     id;
+        int id;
         /**
          * item amount
          */
-        int     amount;
+        int amount;
         /**
          * has the item been taken
          */
@@ -264,10 +271,10 @@ public class GlobalDropsHandler {
         /**
          * Sets the drop arguments
          *
-         * @param id item id
-         * @param amount       item amount
+         * @param id     item id
+         * @param amount item amount
          * @param itemX  cord x
-         * @param itemY       cord y
+         * @param itemY  cord y
          */
 
         public GlobalDrop(int id, int amount, int itemX, int itemY) {

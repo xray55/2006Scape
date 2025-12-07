@@ -52,16 +52,18 @@ public class DoubleDoors {
         DoubleDoors doorClicked = getDoor(id, x, y, z);
 
         if (doorClicked == null) {
-            //System.out.println("Door: " + id + " null debug at x: " + x + " y: " + y + ".");
-            //GameEngine.objectHandler.placeObject(new Objects(-1, x, y, z, 0, 0, 0));
+            // System.out.println("Door: " + id + " null debug at x: " + x + " y: " + y +
+            // ".");
+            // GameEngine.objectHandler.placeObject(new Objects(-1, x, y, z, 0, 0, 0));
             return true;
         }
         if (doorClicked.doorId > 15000) {
-            //	System.out.println("Door: " + id + " clicking debug x: " + x + " y: " + y + ".");
-            return true; //nearly all of these are not opened
+            // System.out.println("Door: " + id + " clicking debug x: " + x + " y: " + y +
+            // ".");
+            return true; // nearly all of these are not opened
         }
 
-        //Region.removeClipping(x, y, z);
+        // Region.removeClipping(x, y, z);
 
         if (doorClicked.open == 0) {
             if (doorClicked.originalFace == 0) {
@@ -107,7 +109,7 @@ public class DoubleDoors {
             }
         } else if (doorClicked.open == 1) {
             if (doorClicked.originalFace == 0) {
-                DoubleDoors westDoor  = getDoor(id - 3, x - 1, y, z);
+                DoubleDoors westDoor = getDoor(id - 3, x - 1, y, z);
                 DoubleDoors upperDoor = getDoor(id + 3, x + 1, y, z);
                 if (westDoor != null) {
                     changeLeftDoor(westDoor);
@@ -350,8 +352,8 @@ public class DoubleDoors {
         return false;
     }
 
-    //Have not found any others yet. Maybe only 1 type of double
-    //doors exist to operate.
+    // Have not found any others yet. Maybe only 1 type of double
+    // doors exist to operate.
     private static final int[] OPEN_DOORS = {
             1520, 1517
     };
@@ -366,15 +368,17 @@ public class DoubleDoors {
 
             for (DoorData data : doorData) {
                 for (DoorData.Location location : data.getLocations()) {
-                    doors.add(new DoubleDoors(data.getId(), location.getX(), location.getY(), location.getHeight(), data.getFace(), isOpenDoor(data.getId()) ? 1 : 0));
+                    doors.add(new DoubleDoors(data.getId(), location.getX(), location.getY(), location.getHeight(),
+                            data.getFace(), isOpenDoor(data.getId()) ? 1 : 0));
                 }
             }
 
-            //singleton.writeJsonDump();
+            // singleton.writeJsonDump();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        System.out.println("Loaded "+ doors.size() +" Double doors in "+ (System.currentTimeMillis() - start) +"ms.");
+        System.out
+                .println("Loaded " + doors.size() + " Double doors in " + (System.currentTimeMillis() - start) + "ms.");
     }
 
     private void writeJsonDump() throws FileNotFoundException {
@@ -386,44 +390,44 @@ public class DoubleDoors {
     }
 
     protected void processLine(String line) {
-		JSONArray array   = new JSONArray();
+        JSONArray array = new JSONArray();
         Scanner scanner = new Scanner(line);
         scanner.useDelimiter(" ");
         try {
             while (scanner.hasNextLine()) {
                 int id = Integer.parseInt(scanner.next());
-                int x  = Integer.parseInt(scanner.next());
-                int y  = Integer.parseInt(scanner.next());
-                int f  = Integer.parseInt(scanner.next());
-                int z  = Integer.parseInt(scanner.next());
+                int x = Integer.parseInt(scanner.next());
+                int y = Integer.parseInt(scanner.next());
+                int f = Integer.parseInt(scanner.next());
+                int z = Integer.parseInt(scanner.next());
 
-				JSONObject object = new JSONObject();
+                JSONObject object = new JSONObject();
 
-				object.put("id", id);
+                object.put("id", id);
 
-				JSONArray  jsonArray = new JSONArray();
-				JSONObject object1   = new JSONObject();
-				object1.put("x", x);
-				object1.put("y", y);
-				object1.put("height", z);
-				jsonArray.put(0, object1);
-				object.put("locations", jsonArray);
+                JSONArray jsonArray = new JSONArray();
+                JSONObject object1 = new JSONObject();
+                object1.put("x", x);
+                object1.put("y", y);
+                object1.put("height", z);
+                jsonArray.put(0, object1);
+                object.put("locations", jsonArray);
 
-				object.put("face", f);
+                object.put("face", f);
 
-				array.put(object);
+                array.put(object);
             }
         } finally {
             scanner.close();
 
-			try {
-				FileWriter fileWriter = new FileWriter("doubledoors-dump.json");
-				fileWriter.write(array.toString());
+            try {
+                FileWriter fileWriter = new FileWriter("doubledoors-dump.json");
+                fileWriter.write(array.toString());
 
-				System.out.println(array.toString());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+                System.out.println(array.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

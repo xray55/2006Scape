@@ -72,10 +72,10 @@ public class ConfigLoader {
         }
         if (obj.has("website_integration"))
             Constants.WEBSITE_INTEGRATION = obj.getBoolean("website_integration");
-        
-        if (obj.has("cycle_logging")) 
+
+        if (obj.has("cycle_logging"))
             Constants.CYCLE_LOGGING = obj.getBoolean("cycle_logging");
-        if (obj.has("cycle_logging_tick")) 
+        if (obj.has("cycle_logging_tick"))
             Constants.CYCLE_LOGGING_TICK = obj.getInt("cycle_logging_tick");
     }
 

@@ -41,7 +41,8 @@ public class JSONObject {
     }
 
     public JSONArray optJSONArray(String key) {
-        if (!has(key)) return null;
+        if (!has(key))
+            return null;
         JsonArray a = obj.getAsJsonArray(key);
         return new JSONArray(a);
     }
